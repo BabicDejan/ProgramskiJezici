@@ -1,0 +1,116 @@
+package programski_jezici;
+
+import com.sample.Unos;
+
+rule "Korisnik nema iskustvo, pohadjao bi faks, ima ispod 18"
+
+    when
+        unos : Unos(brojGodina<18, iskustvo == "Ne", oblast=="Pocetnik sam i nemam definisanu", programskiJezik=="Ne poznajem nijedan", faksIt=="Da", preporukaOblasti=="Nepoznato")
+    then
+        unos.setPreporukaOblasti("Uzimajuci u obzir da ste potpuni pocetnik i da imate manje od 18 godina, imate dosta vremena da se upoznate sa oblastima koje nudi IT, savjetujemo Vam informisanje o trenutno najpopularnijim IT oblastima (Web Development, Ethical Hacking, Machine Learning, AI, Big Data).");
+        unos.setPreporukaProgramskogJezika("Za pocetnika svakako ohrabrujemo prvobitno ucenje programerske logike, trenutno najpopularniji pocetnicki programski jezik je Python. Shvatljive je sintakse i predstavlja najbolji izbor za ulazak u svijet programiranja.");
+        unos.setPreporukaFaks("Obzirom na Vase godine, razmisljanje o fakultetu treba ostaviti za kasnije. Ono sto bi trebalo da radite sada, jeste da se fokusirate na shvatanje principa programiranja kao i osnovnih programerskih algoritama, fokusirati se na sadrzaj na internetu kao i pocetnicke kurseve.");
+        update( unos );
+end 
+rule "Korisnik nema iskustvo, pohadjao bi faks"
+
+    when
+        unos : Unos(iskustvo == "Ne", oblast=="Pocetnik sam i nemam definisanu", programskiJezik=="Ne poznajem nijedan", faksIt=="Da", preporukaOblasti=="Nepoznato")
+    then
+        unos.setPreporukaOblasti("Uzimajuci u obzir da ste potpuni pocetnik, savjetujemo informisanje o trenutno najpopularnijim IT oblastima (Ethical Hacking, Machine Learning, AI, Big Data).");
+        unos.setPreporukaProgramskogJezika("Za pocetnika svakako ohrabrujemo prvobitno ucenje programerske logike, trenutno najpopularniji pocetnicki programski jezik je Python.");
+        unos.setPreporukaFaks("Pohadjanje IT baziranog fakulteta Vam moze dati vrlo dobru osnovu za ulazak u IT svijet.");
+        update( unos );
+end
+rule "Korisnik nema iskustvo, ne bi pohadjao faks"
+    
+    when
+        unos : Unos(iskustvo == "Ne", oblast=="Pocetnik sam i nemam definisanu", programskiJezik=="Ne poznajem nijedan", faksIt=="Ne", preporukaOblasti=="Nepoznato")
+    then
+        unos.setPreporukaOblasti("Uzimajuci u obzir da ste potpuni pocetnik, savjetujemo informisanje o trenutno najpopularnijim IT oblastima (Ethical Hacking, Machine Learning, AI, Big Data).");
+        unos.setPreporukaProgramskogJezika("Za pocetnika svakako ohrabrujemo prvobitno ucenje programerske logike, trenutno najpopularniji pocetnicki programski jezik je Python.");
+        unos.setPreporukaFaks("Pohadjanje IT fakulteta nije potrebno da bi ste se mogli ostvariti kao programeri. Svakako, najbitniji je rad i konstantno ucenje, putem kurseva, interneta..");
+        update( unos );
+end
+
+rule "Korisnik nema iskustvo ali ima oblast (wd) kojom zeli da se bavi, isao bi na faks"
+	
+	when
+		unos : Unos(iskustvo == "Ne", oblast=="Web Development", programskiJezik=="Ne poznajem nijedan",faksIt=="Da", preporukaOblasti=="Nepoznato")
+	then
+		unos.setPreporukaOblasti("Izabrali ste Web Development kao interesnu oblast. Moze predstavljati dobar pocetak, medjutim, morate biti spremni na izazove koje donose ucenje programskih jezika koji podrzavaju razvijanje web aplikacija.\nDobar pocetak bi mozda bio ulazak u App Development, fokusirajuci se na jedan programski jezik.");
+		unos.setPreporukaProgramskogJezika("Za Web development neophodno je poznavanje JavaScript programskog jezika, pa zatim PHP programskog jezika, ovo su dva osnovna programska jezika koja morate nauciti kako bi uspjesno kasnije mogli implementirati i druge programske jezike u razvijanje Web-a \nUkoliko se odlucite za App development, pocetnicka preporuka su JAVA ili Python programski jezik. Python zbog jednostavnosti (cesto je izbor pocetnika), a JAVA zato sto ima dosljednu i logicnu sintaksu, i dalje je vodeci programski jezik u razvijanju aplikacija");
+		unos.setPreporukaFaks("Pohadjanje IT fakulteta Vam moze dati vrlo dobru osnovu za ulazak u IT svijet, pogotovo ako se fokusirate na App Development");
+		update (unos);
+end
+
+rule "Korisnik nema iskustvo ali ima oblast (wd) kojom zeli da se bavi, ne bi isao na faks"
+	
+	when
+		unos : Unos(iskustvo == "Ne", oblast=="Web Development", programskiJezik=="Ne poznajem nijedan",faksIt=="Ne", preporukaOblasti=="Nepoznato")
+	then
+		unos.setPreporukaOblasti("Izabrali ste Web Development kao interesnu oblast. Moze predstavljati dobar pocetak, medjutim, morate biti spremni na izazove koje donose ucenje programskih jezika koji podrzavaju razvijanje web aplikacija.\nDobar pocetak bi mozda bio ulazak u App Development, fokusirajuci se na jedan programski jezik.");
+		unos.setPreporukaProgramskogJezika("Za Web development neophodno je poznavanje JavaScript programskog jezika, pa zatim PHP programskog jezika, ovo su dva osnovna programska jezika koja morate nauciti kako bi uspjesno kasnije mogli implementirati i druge programske jezike u razvijanje Web-a \nUkoliko se odlucite za App development, pocetnicka preporuka su JAVA ili Python programski jezik. Python zbog jednostavnosti (cesto je izbor pocetnika), a JAVA zato sto ima dosljednu i logicnu sintaksu, i dalje je vodeci programski jezik u razvijanju aplikacija");
+		unos.setPreporukaFaks("Fakultet Vam je najmanje potreban da biste bili uspjesni u Web Development-u, na internetu postoji ogroman izvor podataka i kurseva koji Vam svakako mogu pomoci da napredujete, ali, ucenje Web Developmenta je vrlo delikatan proces jer prvo morate dobro shvatiti uvezanost tehnologija.");
+		update(unos);
+end
+
+rule "Korisnik nema iskustvo ali ima oblast (BI) kojom zeli da se bavi, isao bi na faks"
+	
+	when 
+		unos : Unos(iskustvo == "Ne", oblast=="Bussiness Inteligence/Data mining", programskiJezik == "Ne poznajem nijedan", faksIt=="Da", preporukaOblasti=="Nepoznato")
+	then
+		unos.setPreporukaOblasti("Vrlo zahtjevna oblast, koja prije svega zahtjeva dobro algoritmicko poznavanje, matematiku, kao i upravljanje bazama podataka."+
+										"Mozda i nije najbolji izbor za pocetnika, ali zbog porasta trenda BI i Data Mining, sve vise je i dobrog sadrzaja koji upucuje u ovu oblast.");
+		unos.setPreporukaProgramskogJezika("Apsolutna preporuka programskog jezika za ovu oblast je Python. Vrlo efikasan u rjesavanju zahtjeva koji proizilaze iz izabrane oblasti. ");
+		unos.setPreporukaFaks("Fakultetsko obrazovanje vezano za ovu oblast bi Vam dalo vrlo bitnu i korisnu osnovu u daljem izucavanju i napredovanju u ovoj oblasti.");
+		update(unos);
+end
+rule "Korisnik nema iskustvo ali ima oblast (BI) kojom zeli da se bavi, ne bi isao na faks"
+	
+	when 
+		unos : Unos(iskustvo == "Ne", oblast=="Bussiness Inteligence/Data mining", programskiJezik == "Ne poznajem nijedan", faksIt=="Ne", preporukaOblasti=="Nepoznato")
+	then
+		unos.setPreporukaOblasti("Vrlo zahtjevna oblast, koja prije svega zahtjeva dobro algoritmicko poznavanje, matematiku, kao i upravljanje bazama podataka."+
+										"Mozda i nije najbolji izbor za pocetnika, ali zbog porasta trenda BI i Data Mining, sve vise je i dobrog sadrzaja koji upucuje u ovu oblast.");
+		unos.setPreporukaProgramskogJezika("Apsolutna preporuka programskog jezika za ovu oblast je Python. Vrlo efikasan u rjesavanju zahtjeva koji proizilaze iz izabrane oblasti. ");
+		unos.setPreporukaFaks("Kada je u pitanju ova oblast, cvrsto vjerujemo da bi fakultetsko obrazovanje moglo napraviti razliku u brzini ucenja i shvatanja ove oblasti.");
+		update(unos);	
+end
+rule "Korisnik ima iskustvo"
+
+	when
+		unos : Unos(iskustvo == "1-3", oblast == "Software Engineering", programskiJezik == "C++", pohadjanjeFaksa == "Trenutno pohadjam IT fakultet", preporukaOblasti=="Nepoznato")
+	then
+		unos.setPreporukaOblasti("Vama bi preporucili nastavak usavrsavanja u ovoj oblasti, kroz izucavanje drugoh tehnologija i alata.");
+		unos.setPreporukaProgramskogJezika("Preporucili bi izucavanje jos jednog programskog jezika, cvrsto preporucujemo JAVU jer je jezik opste namjene i pronalazi dobru primjenu i u softverskom inzenjeringu.");
+		unos.setPreporukaFaks("Posto Vec pohadjate fakultet, savjetovali bi pracenje sto vise licensiranih kurseva, jer se trendovi u ovoj oblasti vrlo brzo mjenjaju");
+		update(unos);
+end
+rule "Korisnik ima iskustvo i zeli da se bavi gejmingom"
+
+	when
+		unos: Unos(iskustvo=="1-3", oblast=="Game development", programskiJezik == "JAVA", pohadjanjeFaksa == "Trenutno pohadjam IT fakultet", preporukaOblasti =="Nepoznato")
+	then
+		unos.setPreporukaOblasti("Game Development je odlican izbor oblasti kojom zelite da se bavite, prije svega sto ima veliki izbor tehnologija i konstantno napreduje."
+									+"Obzirom na to da imate iskustva, vjerovatno i u ovoj oblasti, napredak Vam je neminovan");
+		unos.setPreporukaProgramskogJezika("JAVA je programski opste namjene i siroko se koristi, pa pronalazi i svoju ulogu u Game Developmentu. Medjutim, savjetovali bi ucenje i C++ ili C# programskih jezika"
+											+" jer Vam mogu dati vise kontrole nad programiranjem igrica, pogotovo zbog upravljanja memorijskim lokacijama, sto je jedna od bitnijih vjestina koje se traze u Game Developmentu.");
+		unos.setPreporukaFaks("Steci cete dobru osnovu za dalje napredovanje po zavrsetku fakulteta. Cinjenica je da po zavrsetku fakulteta necete imati dovoljno bitnih vjestina za ovu oblast, tako da tokom studija"+
+		"morate konstantno uciti i istrazivati o tehnologijama koje su trenutne kako bi mogli ostati kompetentni u ovoj oblasti.");
+		update(unos);
+end
+rule "Korisnik ima iskustvo i zeli da se bavi gejmingom, ne pohadja fakultet"
+
+	when
+		unos: Unos(iskustvo=="1-3", oblast=="Game development", programskiJezik == "JAVA", pohadjanjeFaksa == "Nisam pohadjao/la", preporukaOblasti =="Nepoznato")
+	then
+		unos.setPreporukaOblasti("Game Development je odlican izbor oblasti kojom zelite da se bavite, prije svega sto ima veliki izbor tehnologija i konstantno napreduje."
+									+"Obzirom na to da imate iskustva, vjerovatno i u ovoj oblasti, napredak Vam je neminovan");
+		unos.setPreporukaProgramskogJezika("JAVA je programski opste namjene i siroko se koristi, pa pronalazi i svoju ulogu u Game Developmentu. Medjutim, savjetovali bi ucenje i C++ ili C# programskih jezika"
+											+" jer Vam mogu dati vise kontrole nad programiranjem igrica, pogotovo zbog upravljanja memorijskim lokacijama, sto je jedna od bitnijih vjestina koje se traze u Game Developmentu.");
+		unos.setPreporukaFaks("Obzirom da nijeste pohadjali fakultet a da poznajete programski jezik i imate iskustva, nasa preporuka za Vas bi bilo fokusiranje na pracenje licenciranih kurseva, kao i konstantno istrazivanje i ucenje o novim tehnologijama");
+		update(unos);
+end
+
+
